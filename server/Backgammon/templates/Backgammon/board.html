@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'board.css' %}"/>
+
+<h1>Bientôt ici gira un backgammon !</h1>
+
+<section>
+
+  <div style="display : flex; flex-direction : row;">
+      <div class="triangle" style="background-image: url('{% static 'media/brown_triangle.png' %}');"></div>
+      <div class="triangle" style="background-image: url('{% static 'media/brown_triangle.png' %}');"></div>
+      <div class="pawn" style="background-image: url('{% static 'media/black_circle.png' %}');"></div>
+  </div>
+
+</section>
+
+{% endblock %}
