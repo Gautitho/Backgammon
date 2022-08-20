@@ -1,0 +1,3 @@
+SLOTS_BY_TILE     = 5
+TILES_BY_CLUSTER  = 6
+CLUSTERS          = 4

@@ -1,4 +1,16 @@
-.triangle
+.board
+{
+  display             : grid;
+}
+
+.cluster
+{
+  width               : 300px;
+  grid-row            : 1; 
+  display             : grid; 
+}
+
+.tile
 {
   background-position : center;
   background-repeat   : no-repeat;
@@ -6,14 +18,41 @@
   width               : 50px;
   height              : 250px;
   z-index             : 0;
+  grid-row            : 1;
 }
 
-.pawn
+.slot
 {
   background-position : center;
   background-repeat   : no-repeat;
   background-size     : contain;
+  grid-column         : 1;
   width               : 50px;
   height              : 50px;
   z-index             : 1;
+}
+
+.dice_cluster
+{
+  width               : 108px;
+  height              : 54px;
+  border-width        : 1px;
+  border-color        : grey;
+  display             : flex;
+  flex-direction      : row;
+}
+
+.dice
+{
+  width               : 50px;
+  height              : 50px;
+  border-width        : 2px;
+  border-color        : black;
+  margin              : 2px;
+  background-color    : darkgrey;
+  font-weight         : 700;
+  color               : #FFFFFF;
+  font-size           : 2rem;
+  text-align          : center;
+  line-height         : 50px;
 }

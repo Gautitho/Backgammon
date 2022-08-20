@@ -7,12 +7,33 @@
 
 <h1>Bientôt ici gira un backgammon !</h1>
 
-<section>
+<section">
 
-  <div style="display : flex; flex-direction : row;">
-      <div class="triangle" style="background-image: url('{% static 'media/brown_triangle.png' %}');"></div>
-      <div class="triangle" style="background-image: url('{% static 'media/brown_triangle.png' %}');"></div>
-      <div class="pawn" style="background-image: url('{% static 'media/black_circle.png' %}');"></div>
+  <div class="board" style="grid-template-columns: repeat({{ clusters }}, 1fr);">
+    {% for i in clusters_range %}
+      <div class="cluster" style="grid-column: {{ i }}; grid-template-columns: repeat({{ tiles_by_cluster }}, 1fr);">
+        {% for j in tiles_by_cluster_range %}
+          {% if forloop.counter0|divisibleby:2 %}
+            <div class="tile" style="grid-column: {{ j }}; background-image: url('{% static 'media/brown_triangle.png' %}'); grid-template-rows: repeat({{ slots_by_tile }}, 1fr)">
+              {% for k in slots_by_tile_range %}
+                <div class="slot" style="grid-row: {{ k }}; background-image: url('{% static 'media/black_circle.png' %}');"></div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="tile" style="grid-column: {{ j }}; background-image: url('{% static 'media/yellow_triangle.png' %}');">
+              {% for k in slots_by_tile_range %}
+                <div class="slot" style="grid-row: {{ k }}; background-image: url('{% static 'media/grey_circle.png' %}');"></div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="dice_cluster">
+    <div class="dice">1</div>
+    <div class="dice">6</div>
   </div>
 
 </section>
