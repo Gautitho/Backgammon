@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
-from main import settings
+from main import settings, views
 from Backgammon.views import board
 
 urlpatterns = [
-    path('', board, name="board"),
+    path('', views.index, name="index"),
+    path('board/', board, name="board"),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

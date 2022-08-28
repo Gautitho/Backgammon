@@ -1,0 +1,34 @@
+.board
+{
+  display             : grid;
+}
+.cluster
+{
+  width               : 300px;
+  height              : 50px;
+  grid-row            : 1; 
+  display             : grid; 
+}
+
+.triangle
+{
+  background-position : center;
+  background-repeat   : no-repeat;
+  background-size     : contain;
+  width               : 50px;
+  height              : 250px;
+  z-index             : 0;
+  grid-row            : 1;
+  grid-template-rows  : 5;
+}
+
+.pawn
+{
+  background-position : center;
+  background-repeat   : no-repeat;
+  background-size     : contain;
+  grid-column         : 1;
+  width               : 50px;
+  height              : 50px;
+  z-index             : 1;
+}

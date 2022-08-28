@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load mathfilters %}
+{% load select %}
 {% load static %}
 
 {% block content %}
@@ -8,33 +10,77 @@
 <h1>Bientôt ici gira un backgammon !</h1>
 
 <section">
+  <form method="POST">
+    {% csrf_token %}
+    <div class="board" style="grid-template-columns: repeat({{ clusters }}, 1fr);">
+      {% for i in clusters_range %}
+        <div class="cluster" style="grid-column: {{ i }}; grid-template-columns: repeat({{ tiles_by_cluster }}, 1fr);">
+          {% for j in tiles_by_cluster_range %}
+            {% if forloop.counter0|divisibleby:2 %}
+              <div class="tile" style="grid-column: {{ j }}; background-image: url('{% static 'media/brown_triangle.png' %}'); grid-template-rows: repeat({{ slots_by_tile }}, 1fr)">
+                {% for k in slots_by_tile_range %}
+                  {% if forloop.counter == slots_by_tile %}
+                    {% for m in black_pawn_slot_list %}
+                      {% if m == forloop.parentloop.parentloop.parentloop.counter0|mul:tiles_by_cluster|add:forloop.parentloop.parentloop.counter0 %}
+                        <button class="slot" type="submit" name="slot_{{ m }}" style="grid-row: {{ k }}; background-image: url('{% static 'media/black_circle.png' %}');">{{ black_pawn_number_list|select:forloop.counter0 }}</button>
+                      {% endif %}
+                    {% endfor %}
+                    {% for m in grey_pawn_slot_list %}
+                      {% if m == forloop.parentloop.parentloop.parentloop.counter0|mul:tiles_by_cluster|add:forloop.parentloop.parentloop.counter0 %}
+                        <button class="slot" type="submit" name="slot_{{ m }}" style="grid-row: {{ k }}; background-image: url('{% static 'media/grey_circle.png' %}');">{{ grey_pawn_number_list|select:forloop.counter0 }}</button>
+                      {% endif %}
+                    {% endfor %}
+                    {% if not forloop.parentloop.parentloop.counter0|mul:tiles_by_cluster|add:forloop.parentloop.counter0 in not_empty_slot_list %}
+                      <div class="slot" style="grid-row: {{ k }};"></div>
+                    {% endif %}
+                  {% else %}
+                    <div class="slot" style="grid-row: {{ k }};"></div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="tile" style="grid-column: {{ j }}; background-image: url('{% static 'media/yellow_triangle.png' %}');">
+                {% for k in slots_by_tile_range %}
+                  {% if forloop.counter == slots_by_tile %}
+                    {% for m in black_pawn_slot_list %}
+                      {% if m == forloop.parentloop.parentloop.parentloop.counter0|mul:tiles_by_cluster|add:forloop.parentloop.parentloop.counter0 %}
+                        <button class="slot" type="submit" name="slot_{{ m }}" style="grid-row: {{ k }}; background-image: url('{% static 'media/black_circle.png' %}');">{{ black_pawn_number_list|select:forloop.counter0 }}</button>
+                      {% endif %}
+                    {% endfor %}
+                    {% for m in grey_pawn_slot_list %}
+                      {% if m == forloop.parentloop.parentloop.parentloop.counter0|mul:tiles_by_cluster|add:forloop.parentloop.parentloop.counter0 %}
+                        <button class="slot" type="submit" name="slot_{{ m }}" style="grid-row: {{ k }}; background-image: url('{% static 'media/grey_circle.png' %}');">{{ grey_pawn_number_list|select:forloop.counter0 }}</button>
+                      {% endif %}
+                    {% endfor %}
+                    {% if not forloop.parentloop.parentloop.counter0|mul:tiles_by_cluster|add:forloop.parentloop.counter0 in not_empty_slot_list %}
+                      <div class="slot" style="grid-row: {{ k }};"></div>
+                    {% endif %}
+                  {% else %}
+                    <div class="slot" style="grid-row: {{ k }};"></div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </form>
 
-  <div class="board" style="grid-template-columns: repeat({{ clusters }}, 1fr);">
-    {% for i in clusters_range %}
-      <div class="cluster" style="grid-column: {{ i }}; grid-template-columns: repeat({{ tiles_by_cluster }}, 1fr);">
-        {% for j in tiles_by_cluster_range %}
-          {% if forloop.counter0|divisibleby:2 %}
-            <div class="tile" style="grid-column: {{ j }}; background-image: url('{% static 'media/brown_triangle.png' %}'); grid-template-rows: repeat({{ slots_by_tile }}, 1fr)">
-              {% for k in slots_by_tile_range %}
-                <div class="slot" style="grid-row: {{ k }}; background-image: url('{% static 'media/black_circle.png' %}');"></div>
-              {% endfor %}
-            </div>
-          {% else %}
-            <div class="tile" style="grid-column: {{ j }}; background-image: url('{% static 'media/yellow_triangle.png' %}');">
-              {% for k in slots_by_tile_range %}
-                <div class="slot" style="grid-row: {{ k }}; background-image: url('{% static 'media/grey_circle.png' %}');"></div>
-              {% endfor %}
-            </div>
-          {% endif %}
-        {% endfor %}
-      </div>
-    {% endfor %}
-  </div>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="dice_cluster">
+        <button class="dice" type="submit" name="dice_0">{{ dice_list.0 }}</button>
+        <button class="dice" type="submit" name="dice_1">{{ dice_list.1 }}</button>
+    </div>
+  </form>
 
-  <div class="dice_cluster">
-    <div class="dice">1</div>
-    <div class="dice">6</div>
-  </div>
+  <form method="POST">
+    {% csrf_token %}
+    <button class="button" type="submit" name="roll">Roll the dice</button>
+  </form>
+
+  <div>{{clicked}}</div>
 
 </section>
 
