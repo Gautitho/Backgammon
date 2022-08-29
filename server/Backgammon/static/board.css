@@ -1,5 +1,11 @@
 .board
 {
+  display             : flex;
+  flex-direction      : row;
+}
+
+.board_grid
+{
   display             : grid;
 }
 
@@ -7,7 +13,11 @@
 {
   width               : 300px;
   grid-row            : 1; 
-  display             : grid; 
+  display             : grid;
+  margin              : 10px; 
+  border-width        : 2px;
+  border-color        : grey;
+  border-style        : solid;
 }
 
 .tile
@@ -43,6 +53,7 @@
   height              : 54px;
   border-width        : 1px;
   border-color        : grey;
+  border-style        : solid;
   display             : flex;
   flex-direction      : row;
 }
@@ -76,4 +87,22 @@
     padding-right:      1rem;
     text-align:         center;
     display:            block;
+}
+
+.jail
+{
+  width               : 60px;
+  height              : 300px;
+  border-width        : 2px;
+  border-color        : brown;
+  border-style        : solid;
+}
+
+.aim
+{
+  width               : 60px;
+  height              : 300px;
+  border-width        : 2px;
+  border-color        : green;
+  border-style        : solid;
 }

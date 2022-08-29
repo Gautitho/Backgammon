@@ -3,6 +3,10 @@
 
 {% block content %}
 
-<a href="{% url 'board' %}" > Backgammon page </a>
+<form action="{% url 'board' %}" method="POST">
+  {% csrf_token %}
+  <input type="text" name="pseudo">
+  <button type="submit" name="button_go">Go !</button>
+</form>
 
 {% endblock %}
